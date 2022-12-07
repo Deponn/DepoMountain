@@ -53,7 +53,7 @@ public class CommandParser {
         if (argsList.size() > 1 && "-n".equals(argsList.get(argsList.size() - 2))) {
             return Arrays.asList("0", "5", "20");
         } else {
-            return Stream.of("-a", "-b", "-n")
+            return Stream.of("-OnlyAir", "-NoBorder", "-n")
                     .filter(s -> !argsList.contains(s))
                     .collect(Collectors.toList());
         }
@@ -68,16 +68,16 @@ public class CommandParser {
      */
     public static CommandParser parseCommand(CommandSender sender, String[] args) {
         List<String> argsList = Arrays.asList(args);
-        boolean bReplaceAll = false;
-        boolean bCollectBorder = false;
+        boolean bReplaceAll = true;
+        boolean bCollectBorder = true;
         int numInterpolationPoints = 0;
-        if (argsList.contains("-a")) {
+        if (argsList.contains("-OnlyAir")) {
             // 全置き換えモード、trueの場合空気ブロック以外も置き換える
-            bReplaceAll = true;
+            bReplaceAll = false;
         }
-        if (argsList.contains("-b")) {
+        if (argsList.contains("-NoBorder")) {
             // 境界にラピスラズリブロック配置モード、trueの場合境界をなめらかにする
-            bCollectBorder = true;
+            bCollectBorder = false;
         }
         if (argsList.contains("-n")) {
             // 引数が何番目か取得し、若い番号を採用する

@@ -76,12 +76,11 @@ public class MountOperation {
      * @param heightControlPoints ラピスラズリの位置 (出力)
      * @return 操作オブジェクト
      */
-    public static Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints,boolean b_round) {
+    public static Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints) {
         // 操作
         return new RegionOperation(region, heightmapArray, (xPoint, zPoint, top, context) -> {
-            if (b_round) {
-                // ラピスラズリブロックがなかった場合、k近傍法を参考にし、y=sum(yn/((x-xn)^2+(z-zn)^2))/sum(1/((x-xn)^2+(z-zn)^2))で標高計算。あった場合そのy座標が標高
-
+            // ラピスラズリブロックがなかった場合、k近傍法を参考にし、y=sum(yn/((x-xn)^2+(z-zn)^2))/sum(1/((x-xn)^2+(z-zn)^2))で標高計算。あった場合そのy座標が標高
+            if (top == -1) {
                 // 距離のリストに変換。
                 ArrayList<DistanceHeightData> trainingFixedList = new ArrayList<DistanceHeightData>();
                 for (ControlPointData line : heightControlPoints) {
@@ -97,36 +96,11 @@ public class MountOperation {
                 double numerator = 0;
                 double denominator = 0;
                 for (int i = 0; i < maxi; i++) {
-                    numerator += trainingFixedList.get(i).yHeight * Math.exp(-trainingFixedList.get(i).xzDistance);
-                    denominator += 1 * Math.exp(-trainingFixedList.get(i).xzDistance);
+                    numerator += trainingFixedList.get(i).yHeight / trainingFixedList.get(i).xzDistance;
+                    denominator += 1 / trainingFixedList.get(i).xzDistance;
                 }
                 // ハイトマップを補間
                 top = (int) Math.round(numerator / denominator);
-
-            }else {
-                // ラピスラズリブロックがなかった場合、k近傍法を参考にし、y=sum(yn/((x-xn)^2+(z-zn)^2))/sum(1/((x-xn)^2+(z-zn)^2))で標高計算。あった場合そのy座標が標高
-                if (top == -1) {
-                    // 距離のリストに変換。
-                    ArrayList<DistanceHeightData> trainingFixedList = new ArrayList<DistanceHeightData>();
-                    for (ControlPointData line : heightControlPoints) {
-                        trainingFixedList.add(new DistanceHeightData(
-                                Math.pow(xPoint - line.xPoint, 2) + Math.pow(zPoint - line.zPoint, 2),
-                                line.yHeight
-                        ));
-                    }
-                    // 距離順にする
-                    trainingFixedList.sort(Comparator.comparingDouble(a -> a.xzDistance));
-
-                    // 計算
-                    double numerator = 0;
-                    double denominator = 0;
-                    for (int i = 0; i < maxi; i++) {
-                        numerator += trainingFixedList.get(i).yHeight / trainingFixedList.get(i).xzDistance;
-                        denominator += 1 / trainingFixedList.get(i).xzDistance;
-                    }
-                    // ハイトマップを補間
-                    top = (int) Math.round(numerator / denominator);
-                }
             }
             return top;
         });

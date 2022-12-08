@@ -25,10 +25,6 @@ public class CommandParser {
     public final boolean bCollectBorder;
 
     /**
-     * 頂上を丸くする
-     */
-    public final boolean b_round;
-    /**
      * y軸の範囲を無視する
      */
     public final boolean b_Y_Limited;
@@ -38,19 +34,18 @@ public class CommandParser {
     public final int numInterpolationPoints;
 
     // パース成功
-    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder,boolean b_Y_Limited, boolean b_round,int numInterpolationPoints) {
+    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder,boolean b_Y_Limited, int numInterpolationPoints) {
         this.isSuccess = isSuccess;
         this.bReplaceAll = bReplaceAll;
         this.bCollectBorder = bCollectBorder;
         this.numInterpolationPoints = numInterpolationPoints;
         this.b_Y_Limited = b_Y_Limited;
-        this.b_round = b_round;
 
     }
 
     // パース失敗
     private CommandParser() {
-        this(false, false, false , false,false,0);
+        this(false, false, false , false,0);
     }
 
     /**
@@ -65,7 +60,7 @@ public class CommandParser {
         if (argsList.size() > 1 && "-k".equals(argsList.get(argsList.size() - 2))) {
             return Arrays.asList("0", "5", "20");
         } else {
-            return Stream.of("-OnlyAir", "-NoBorder","-NoLimited","-Round" ,"-k")
+            return Stream.of("-OnlyAir", "-NoBorder","-NoLimited","-k")
                     .filter(s -> !argsList.contains(s))
                     .collect(Collectors.toList());
         }
@@ -83,7 +78,7 @@ public class CommandParser {
         boolean bReplaceAll = true;
         boolean bCollectBorder = true;
         boolean b_Y_Limited = true;
-        boolean b_Round = false;
+
         int numInterpolationPoints = 0;
         if (argsList.contains("-OnlyAir")) {
             // 全置き換えモード、trueの場合空気ブロック以外も置き換える
@@ -94,12 +89,8 @@ public class CommandParser {
             bCollectBorder = false;
         }
         if (argsList.contains("-NoLimited")) {
-            // 境界にラピスラズリブロック配置モード、trueの場合境界をなめらかにする
+            // y軸の範囲を無視する
             b_Y_Limited = false;
-        }
-        if (argsList.contains("-Round")) {
-            // 境界にラピスラズリブロック配置モード、trueの場合境界をなめらかにする
-            b_Round = true;
         }
         if (argsList.contains("-k")) {
             // 引数が何番目か取得し、若い番号を採用する
@@ -121,6 +112,6 @@ public class CommandParser {
                 return new CommandParser();
             }
         }
-        return new CommandParser(true, bReplaceAll, bCollectBorder, b_Y_Limited,b_Round,numInterpolationPoints);
+        return new CommandParser(true, bReplaceAll, bCollectBorder, b_Y_Limited, numInterpolationPoints);
     }
 }

@@ -8,7 +8,7 @@ description: create mountain
 commands: #自作プラグインのコマンドを宣言
   /mountain:
     description: ラピスラズリブロックの点の補間により山を作成します。
-    usage: //mountain [-OnlyAir:空気以外も書き換え] [-NoBorder:境界の高さを取得] [-NoLimited:境界の高さを取得] [-n:補完の頂点数]
+    usage: //mountain [-OnlyAir:空気以外も書き換え] [-NoBorder:境界の高さを取得] [-NoLimited:境界の高さを取得][-Round:山の頂上を丸くする] [-k:補完の頂点数]
     permission: mountain
 
 permissions:

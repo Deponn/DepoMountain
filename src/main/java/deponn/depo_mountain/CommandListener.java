@@ -6,6 +6,7 @@ import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.extension.platform.AbstractPlayerActor;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
@@ -71,9 +72,17 @@ public class CommandListener implements CommandExecutor, TabCompleter {
                 // パース失敗
                 return true;
             }
-
+            BlockVector3 minimum_pos = region.getMinimumPoint();
+            BlockVector3 maximum_pos = region.getMaximumPoint();
+            if(parser.b_Y_Limited) {
+                minimum_pos = BlockVector3.at(minimum_pos.getBlockX() + 1, minimum_pos.getBlockY(), minimum_pos.getBlockZ() + 1);
+                maximum_pos = BlockVector3.at(maximum_pos.getBlockX() - 1, maximum_pos.getBlockY(), maximum_pos.getBlockZ() - 1);
+            }else {
+                minimum_pos = BlockVector3.at(minimum_pos.getBlockX(), 0, minimum_pos.getBlockZ());
+                maximum_pos = BlockVector3.at(maximum_pos.getBlockX(), 255, maximum_pos.getBlockZ());
+            }
             // 範囲を設定
-            CuboidRegion bound = new CuboidRegion(region.getWorld(), region.getMinimumPoint(), region.getMaximumPoint());
+            CuboidRegion bound = new CuboidRegion(region.getWorld(), minimum_pos, maximum_pos);
             //bound.expand(
             //        new Vector(0, (bound.getWorld().getMaxY() + 1), 0),
             //        new Vector(0, -(bound.getWorld().getMaxY() + 1), 0));

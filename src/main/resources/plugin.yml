@@ -1,9 +1,10 @@
-name: Depo_mountain
+name: Depo_Mountain_1_16_5
 version: '${version}'
-main: deponn.depo_mountain.Depo_mountain
+main: depo_mountain.depo_mountain_1_16_5.Depo_Mountain_1_16_5
 api-version: 1.16
-authors: [ deponn ]
+authors: [ Deponn ]
 description: create mountain
+
 
 commands: #自作プラグインのコマンドを宣言
   /mountain:

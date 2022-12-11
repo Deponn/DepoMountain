@@ -1,4 +1,4 @@
-package deponn.depo_mountain;
+package depo_mountain.depo_mountain_1_16_5;
 
 /**
  * ある点Pとの距離の二乗と高さの関係

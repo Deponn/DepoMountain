@@ -1,4 +1,4 @@
-package deponn.depo_mountain;
+package depo_mountain.depo_mountain_1_16_5;
 
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.function.operation.Operation;
@@ -120,7 +120,7 @@ public class OperationExecutor {
             }
         }
                 // 4ティックに1回処理を行う (これでもかなり負荷がかかる)
-                .runTaskTimer(JavaPlugin.getPlugin(Depo_mountain.class), 0, 4);
+                .runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 0, 4);
     }
 
     /**

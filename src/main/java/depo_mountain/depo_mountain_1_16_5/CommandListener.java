@@ -1,4 +1,4 @@
-package deponn.depo_mountain;
+package depo_mountain.depo_mountain_1_16_5;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalSession;

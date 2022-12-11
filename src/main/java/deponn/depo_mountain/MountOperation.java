@@ -76,7 +76,7 @@ public class MountOperation {
      * @param heightControlPoints ラピスラズリの位置 (出力)
      * @return 操作オブジェクト
      */
-    public static Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints) {
+    public static Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints,double b_degree) {
         // 操作
         return new RegionOperation(region, heightmapArray, (xPoint, zPoint, top, context) -> {
             // ラピスラズリブロックがなかった場合、k近傍法を参考にし、y=sum(yn/((x-xn)^2+(z-zn)^2))/sum(1/((x-xn)^2+(z-zn)^2))で標高計算。あった場合そのy座標が標高
@@ -85,7 +85,7 @@ public class MountOperation {
                 ArrayList<DistanceHeightData> trainingFixedList = new ArrayList<DistanceHeightData>();
                 for (ControlPointData line : heightControlPoints) {
                     trainingFixedList.add(new DistanceHeightData(
-                            Math.pow(xPoint - line.xPoint, 2) + Math.pow(zPoint - line.zPoint, 2),
+                            Math.pow(Math.pow(xPoint - line.xPoint, 2) + Math.pow(zPoint - line.zPoint, 2),b_degree/2),
                             line.yHeight
                     ));
                 }

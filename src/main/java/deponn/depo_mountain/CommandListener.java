@@ -121,7 +121,7 @@ public class CommandListener implements CommandExecutor, TabCompleter {
 
                         // 地形の補間計算
                         executor.run(
-                                MountOperation.interpolateSurface(maxi, bound, heightmapArray, heightControlPoints),
+                                MountOperation.interpolateSurface(maxi, bound, heightmapArray, heightControlPoints,parser.b_degree),
                                 s -> s.forEach(str -> sender.sendMessage(ChatColor.GREEN + "地形補間を計算中... " + str)),
                                 e -> sender.sendMessage(ChatColor.RED + "地形補間の計算中にエラーが発生しました。"),
                                 () -> {

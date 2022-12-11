@@ -33,19 +33,22 @@ public class CommandParser {
      */
     public final int numInterpolationPoints;
 
+    public final double b_degree;
+
     // パース成功
-    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder,boolean b_Y_Limited, int numInterpolationPoints) {
+    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder,boolean b_Y_Limited, int numInterpolationPoints,double b_degree) {
         this.isSuccess = isSuccess;
         this.bReplaceAll = bReplaceAll;
         this.bCollectBorder = bCollectBorder;
         this.numInterpolationPoints = numInterpolationPoints;
         this.b_Y_Limited = b_Y_Limited;
+        this.b_degree = b_degree;
 
     }
 
     // パース失敗
     private CommandParser() {
-        this(false, false, false , false,0);
+        this(false, false, false , false,0,0);
     }
 
     /**
@@ -58,9 +61,11 @@ public class CommandParser {
     public static List<String> suggestCommand(CommandSender sender, String[] args) {
         List<String> argsList = Arrays.asList(args);
         if (argsList.size() > 1 && "-k".equals(argsList.get(argsList.size() - 2))) {
-            return Arrays.asList("0", "5", "20");
+            return Arrays.asList("0", "5", "20","100");
+        } else if (argsList.size() > 1 && "-degree".equals(argsList.get(argsList.size() - 2))) {
+            return Arrays.asList("2", "3", "4");
         } else {
-            return Stream.of("-OnlyAir", "-NoBorder","-NoLimited","-k")
+            return Stream.of("-OnlyAir", "-NoBorder","-NoLimited","-k","-degree")
                     .filter(s -> !argsList.contains(s))
                     .collect(Collectors.toList());
         }
@@ -80,6 +85,8 @@ public class CommandParser {
         boolean b_Y_Limited = true;
 
         int numInterpolationPoints = 0;
+        double b_degree = 2;
+
         if (argsList.contains("-OnlyAir")) {
             // 全置き換えモード、trueの場合空気ブロック以外も置き換える
             bReplaceAll = false;
@@ -112,6 +119,26 @@ public class CommandParser {
                 return new CommandParser();
             }
         }
-        return new CommandParser(true, bReplaceAll, bCollectBorder, b_Y_Limited, numInterpolationPoints);
+        if (argsList.contains("-degree")) {
+            // 引数が何番目か取得し、若い番号を採用する
+            int index = argsList.indexOf("-degree");
+            if (index + 1 >= argsList.size()) {
+                // 引数の次がなかった場合、エラー
+                sender.sendMessage(ChatColor.RED + "数値が必要です。 -degree <数字>");
+                return new CommandParser();
+            }
+            try {
+                // 補間する頂点(ラピスラズリブロック)の数
+                b_degree= Integer.parseInt(argsList.get(index + 1));
+                if (b_degree < 0) {
+                    sender.sendMessage(ChatColor.RED + "数値は正の数である必要があります。 -degree <数字>");
+                    return new CommandParser();
+                }
+            } catch (NumberFormatException e) {
+                sender.sendMessage(ChatColor.RED + "数値が不正です。 -degree <数字>");
+                return new CommandParser();
+            }
+        }
+        return new CommandParser(true, bReplaceAll, bCollectBorder, b_Y_Limited, numInterpolationPoints,b_degree);
     }
 }

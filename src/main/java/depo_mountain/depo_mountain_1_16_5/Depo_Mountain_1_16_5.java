@@ -2,6 +2,8 @@ package depo_mountain.depo_mountain_1_16_5;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class Depo_Mountain_1_16_5 extends JavaPlugin {
     @Override
     public void onEnable() {
@@ -17,7 +19,7 @@ public final class Depo_Mountain_1_16_5 extends JavaPlugin {
         getLogger().info("DepoMountainが有効化されました。");
 
         // コマンドを登録
-        getServer().getPluginCommand("/mountain").setExecutor(new CommandListener());
+        Objects.requireNonNull(getServer().getPluginCommand("/DpMountain")).setExecutor(new CommandListener());
     }
 
     @Override

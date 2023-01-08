@@ -19,20 +19,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * コマンド処理クラス
- *
- * @note WorldEditがない環境でWorldEditのクラスを読み込まないよう、別クラスに移動
+ * WorldEditがない環境でWorldEditのクラスを読み込まないよう、別クラスに移動
  */
 public class CommandListener implements CommandExecutor, TabCompleter {
     // コマンドを実際に処理
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         // プレイヤーがコマンドを投入した際の処理...
-        if (cmd.getName().equalsIgnoreCase("/mountain")) {
+        if (cmd.getName().equalsIgnoreCase("/DpMountain")) {
             // プレイヤーチェック
             if (!(sender instanceof Player)) {
                 // コマブロやコンソールからの実行の場合
@@ -90,15 +88,16 @@ public class CommandListener implements CommandExecutor, TabCompleter {
             // 範囲中のラピスラズリブロックの位置を座標指定型で記録
             int[][] heightmapArray = new int[bound.getWidth()][bound.getLength()];
             // 範囲中のラピスラズリブロックの位置をリストとして記録
-            ArrayList<ControlPointData> heightControlPoints = new ArrayList<ControlPointData>();
+            ArrayList<ControlPointData> heightControlPoints = new ArrayList<>();
 
             // 複数ティックに分けて操作をするための準備
             OperationExecutor executor = new OperationExecutor();
             executor.start();
 
+            MountOperation mountOperation = new MountOperation(bound);
             // ラピスラズリブロックを目印として、範囲中のデータを取得
             executor.run(
-                    MountOperation.collectSurfacePoints(wWorld, bound, parser.bCollectBorder, heightmapArray, heightControlPoints),
+                    mountOperation.collectSurfacePoints(wWorld, bound, parser.bCollectBorder, heightmapArray, heightControlPoints),
                     s -> s.forEach(str -> sender.sendMessage(ChatColor.GREEN + "ラピスラズリの位置を取得中... " + str)),
                     e -> sender.sendMessage(ChatColor.RED + "ラピスブロック位置の取得中にエラーが発生しました。"),
                     () -> {
@@ -121,7 +120,7 @@ public class CommandListener implements CommandExecutor, TabCompleter {
 
                         // 地形の補間計算
                         executor.run(
-                                MountOperation.interpolateSurface(maxi, bound, heightmapArray, heightControlPoints,parser.b_degree),
+                                mountOperation.interpolateSurface(maxi, bound, heightmapArray, heightControlPoints,parser.b_degree),
                                 s -> s.forEach(str -> sender.sendMessage(ChatColor.GREEN + "地形補間を計算中... " + str)),
                                 e -> sender.sendMessage(ChatColor.RED + "地形補間の計算中にエラーが発生しました。"),
                                 () -> {
@@ -129,7 +128,7 @@ public class CommandListener implements CommandExecutor, TabCompleter {
                                     EditSession editSession = worldEdit.createEditSession(player);
                                     // 範囲中の地形を実際に改変
                                     executor.run(
-                                            MountOperation.applySurface(editSession, wWorld, parser.bReplaceAll, bound, heightmapArray),
+                                            mountOperation.applySurface(editSession, wWorld, parser.bReplaceAll, bound, heightmapArray),
                                             s -> s.forEach(str -> sender.sendMessage(ChatColor.GREEN + "ブロックを設置中... " + str)),
                                             e -> sender.sendMessage(ChatColor.RED + e.getMessage()),
                                             () -> {

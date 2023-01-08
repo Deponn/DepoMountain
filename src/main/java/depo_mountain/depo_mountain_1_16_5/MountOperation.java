@@ -1,5 +1,7 @@
 package depo_mountain.depo_mountain_1_16_5;
 
+import com.sk89q.worldedit.function.pattern.BlockPattern;
+import com.sk89q.worldedit.function.pattern.RandomPattern;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.world.block.*;
@@ -9,6 +11,7 @@ import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.pattern.Pattern;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.world.World;
+import org.bukkit.Material;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -21,6 +24,10 @@ import java.util.Objects;
  * 関数から処理が返った段階ではまだ処理は終わっていないため、Operationの完了を待つ必要がある
  */
 public class MountOperation {
+    private final GroundPattern groundPattern;
+    public MountOperation(CuboidRegion bound){
+        this.groundPattern = new GroundPattern(bound.getMaximumPoint(),bound.getMinimumPoint());
+    }
     /**
      * ラピスラズリの位置を集める
      *
@@ -31,7 +38,7 @@ public class MountOperation {
      * @param heightControlPoints ラピスラズリの位置 (出力)
      * @return 操作オブジェクト
      */
-    public static Operation collectSurfacePoints(World wWorld, CuboidRegion region, boolean bCollectBorder, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints) {
+    public Operation collectSurfacePoints(World wWorld, CuboidRegion region, boolean bCollectBorder, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints) {
         // 座標
         int x1 = region.getMinimumPoint().getBlockX();
         int y1 = region.getMinimumPoint().getBlockY();
@@ -76,7 +83,7 @@ public class MountOperation {
      * @param heightControlPoints ラピスラズリの位置 (出力)
      * @return 操作オブジェクト
      */
-    public static Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints,double b_degree) {
+    public Operation interpolateSurface(int maxi, CuboidRegion region, int[][] heightmapArray, ArrayList<ControlPointData> heightControlPoints,double b_degree) {
         // 操作
         return new RegionOperation(region, heightmapArray, (xPoint, zPoint, top, context) -> {
             // ラピスラズリブロックがなかった場合、k近傍法を参考にし、y=sum(yn/((x-xn)^2+(z-zn)^2))/sum(1/((x-xn)^2+(z-zn)^2))で標高計算。あった場合そのy座標が標高
@@ -116,23 +123,13 @@ public class MountOperation {
      * @param heightmapArray ハイトマップ、高さを保持する
      * @return 操作オブジェクト
      */
-    public static Operation applySurface(EditSession editSession, World wWorld, boolean bReplaceAll, CuboidRegion region, int[][] heightmapArray) {
+    public Operation applySurface(EditSession editSession, World wWorld, boolean bReplaceAll, CuboidRegion region, int[][] heightmapArray) {
         // ブロックを予め定義
-        BlockType lapis0 = BlockTypes.LAPIS_BLOCK;
-        BlockState lapis1 = Objects.requireNonNull(lapis0).getDefaultState();
-        BaseBlock lapis = lapis1.toBaseBlock();
-        BlockType air0 = BlockTypes.AIR;
-        BlockState air1 = Objects.requireNonNull(air0).getDefaultState();
-        BaseBlock air = air1.toBaseBlock();
-        BlockType grass0 = BlockTypes.GRASS_BLOCK;
-        BlockState grass1 = Objects.requireNonNull(grass0).getDefaultState();
-        BaseBlock grass = grass1.toBaseBlock();
-        BlockType dirt0 = BlockTypes.DIRT;
-        BlockState dirt1 = Objects.requireNonNull(dirt0).getDefaultState();
-        BaseBlock dirt = dirt1.toBaseBlock();
-        BlockType stone0 = BlockTypes.STONE;
-        BlockState stone1 = Objects.requireNonNull(stone0).getDefaultState();
-        BaseBlock stone = stone1.toBaseBlock();
+        BaseBlock lapisblock = BlockTypes.LAPIS_BLOCK.getDefaultState().toBaseBlock();
+        BaseBlock air = BlockTypes.AIR.getDefaultState().toBaseBlock();
+        BaseBlock grass = BlockTypes.GRASS_BLOCK.getDefaultState().toBaseBlock();
+        BaseBlock dirt = BlockTypes.DIRT.getDefaultState().toBaseBlock();
+        BaseBlock bedrock = BlockTypes.BEDROCK.getDefaultState().toBaseBlock();
         // 座標
         int y1 = region.getMinimumPoint().getBlockY();
         int y2 = region.getMaximumPoint().getBlockY();
@@ -140,7 +137,6 @@ public class MountOperation {
         return new RegionOperation(region, heightmapArray, (xPoint, zPoint, top, context) -> {
             // 改変後の地形のパターン
             Pattern pattern = new Pattern() {
-
                 @Override
                 public BaseBlock applyBlock (BlockVector3 position){
                     // 表面からの距離に応じて違うブロックにする
@@ -149,10 +145,12 @@ public class MountOperation {
                         return air;
                     } else if (top - yPoint < 1) {
                         return grass;
-                    } else if (top - yPoint < 5) {
+                    } else if (top - yPoint < 6) {
                         return dirt;
+                    } else if (yPoint < 2){
+                        return bedrock;
                     } else {
-                        return stone;
+                        return groundPattern.getBlock(position);
                     }
                 }
             };
@@ -177,7 +175,7 @@ public class MountOperation {
                                 return false;
                             }
                             // ラピスラズリブロックは置き換え
-                            if (compare.equalsFuzzy(lapis)) {
+                            if (compare.equalsFuzzy(lapisblock)) {
                                 return true;
                             }
                             // bReplaceAllがfalseの場合は空気しか置き換えない

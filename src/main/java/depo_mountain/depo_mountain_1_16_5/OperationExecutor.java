@@ -120,7 +120,7 @@ public class OperationExecutor {
             }
         }
                 // 4ティックに1回処理を行う (これでもかなり負荷がかかる)
-                .runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 0, 4);
+                .runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 0, 20);
     }
 
     /**

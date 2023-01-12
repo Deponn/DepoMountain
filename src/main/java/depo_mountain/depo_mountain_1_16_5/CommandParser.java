@@ -31,16 +31,16 @@ public class CommandParser {
     /**
      * 補間する頂点(ラピスラズリブロック)の数
      */
-    public final int numInterpolationPoints;
+    public final int kNum;
 
     public final double b_degree;
 
     // パース成功
-    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder,boolean b_Y_Limited, int numInterpolationPoints,double b_degree) {
+    private CommandParser(boolean isSuccess, boolean bReplaceAll, boolean bCollectBorder, boolean b_Y_Limited, int kNum, double b_degree) {
         this.isSuccess = isSuccess;
         this.bReplaceAll = bReplaceAll;
         this.bCollectBorder = bCollectBorder;
-        this.numInterpolationPoints = numInterpolationPoints;
+        this.kNum = kNum;
         this.b_Y_Limited = b_Y_Limited;
         this.b_degree = b_degree;
 

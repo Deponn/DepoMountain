@@ -5,9 +5,8 @@ import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockTypes;
 
 import java.util.Random;
-import java.util.Vector;
 
-public class GroundPattern {
+public class Object_GroundPattern {
 
 
     private final BaseBlock[][][] Ground;
@@ -18,7 +17,7 @@ public class GroundPattern {
     private final int SizeY;
     private final int SizeZ;
 
-    public GroundPattern(BlockVector3 MaxPos, BlockVector3 MinPos) {
+    public Object_GroundPattern(BlockVector3 MaxPos, BlockVector3 MinPos) {
         BaseBlock STONE = BlockTypes.STONE.getDefaultState().toBaseBlock();
         BaseBlock ANDESITE = BlockTypes.ANDESITE.getDefaultState().toBaseBlock();
         BaseBlock GRANITE = BlockTypes.GRANITE.getDefaultState().toBaseBlock();

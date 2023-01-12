@@ -3,7 +3,7 @@ package depo_mountain.depo_mountain_1_16_5;
 /**
  * ハイトマップx,z地点における高さyのデータ
  */
-public class ControlPointData {
+public class Data_ControlPoint {
     /**
      * x, z座標 (検索用)
      */
@@ -20,7 +20,7 @@ public class ControlPointData {
      * @param zPoint  z座標 (検索用)
      * @param yHeight y座標 (取り出し用)
      */
-    public ControlPointData(int xPoint, int zPoint, int yHeight) {
+    public Data_ControlPoint(int xPoint, int zPoint, int yHeight) {
         this.xPoint = xPoint;
         this.zPoint = zPoint;
         this.yHeight = yHeight;

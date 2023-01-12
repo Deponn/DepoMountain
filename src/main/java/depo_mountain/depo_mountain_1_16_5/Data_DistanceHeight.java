@@ -3,7 +3,7 @@ package depo_mountain.depo_mountain_1_16_5;
 /**
  * ある点Pとの距離の二乗と高さの関係
  */
-public class DistanceHeightData {
+public class Data_DistanceHeight {
     /**
      * xz面上での距離
      */
@@ -19,7 +19,7 @@ public class DistanceHeightData {
      * @param xzDistance 点Pとのxz面上での距離
      * @param yHeight    yの高さ
      */
-    public DistanceHeightData(double xzDistance, double yHeight) {
+    public Data_DistanceHeight(double xzDistance, double yHeight) {
         this.xzDistance = xzDistance;
         this.yHeight = yHeight;
     }

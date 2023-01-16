@@ -1,6 +1,5 @@
 package depo_mountain.depo_mountain_1_16_5;
 
-import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.WorldEditException;
@@ -18,32 +17,32 @@ import java.util.ArrayList;
 
 public class Operator_CreateMountain {
 
+    public boolean isEnabled;
     // 範囲中のラピスラズリブロックの位置を座標指定型で記録
-    private int[][] heightmapArray;
+    public int[][] heightmapArray;
     // 範囲中のラピスラズリブロックの位置をリストとして記録
-    private ArrayList<Data_ControlPoint> heightControlPoints;
-    private CuboidRegion region;
-    private boolean hasRegion;
-    private World wWorld;
-    private CommandParser commandParser;
-    private Player player;
-    private WorldEditPlugin worldEditPlugin;
+    public ArrayList<Data_ControlPoint> heightControlPoints;
+    public CuboidRegion region;
+    public World wWorld;
+    public CommandParser commandParser;
+    public Player player;
+    public WorldEditPlugin worldEditPlugin;
+    public LocalSession session;
+    public AbstractPlayerActor wPlayer;
 
-    public Operator_CreateMountain(){
-        hasRegion = false;
+    public Operator_CreateMountain(CommandParser parser, Player player){
+        this.isEnabled = setRegion(parser, player);
     }
-    public boolean setRegion(CommandParser parser, Player player){
+    private boolean setRegion(CommandParser parser, Player player){
         // WorldEditを取得
         this.worldEditPlugin = JavaPlugin.getPlugin(WorldEditPlugin.class);
         this.player = player;
-        AbstractPlayerActor wPlayer = worldEditPlugin.wrapPlayer(player);
+        this.wPlayer = worldEditPlugin.wrapPlayer(player);
         this.wWorld = wPlayer.getWorld();
         this.commandParser = parser;
 
         // プレイヤーセッション
-        LocalSession session = WorldEdit.getInstance()
-                .getSessionManager()
-                .get(wPlayer);
+        this.session = WorldEdit.getInstance().getSessionManager().get(wPlayer);
 
         if (!session.isSelectionDefined(wWorld)) {
             // 範囲が選択されていない場合
@@ -76,22 +75,14 @@ public class Operator_CreateMountain {
         heightmapArray = new int[region.getWidth()][region.getLength()];
         // 範囲中のラピスラズリブロックの位置をリストとして記録
         heightControlPoints = new ArrayList<>();
-        hasRegion = true;
         return true;
     }
 
     public void CreateHill(){
-        if (hasRegion) {
-            _1_LapisCollector.CollectLapis(wWorld, region,commandParser.bCollectBorder,heightmapArray,heightControlPoints);
-
-            EditSession editSession = worldEditPlugin.createEditSession(player);
-            _3_BlockEdit a3BlockEdit = new _3_BlockEdit(editSession,wWorld,commandParser.bReplaceAll,region,heightmapArray);
-            _2_CalculationSurface a2CalculationSurface = new _2_CalculationSurface(commandParser.kNum,region,heightmapArray,heightControlPoints,commandParser.b_degree, a3BlockEdit);
-            a2CalculationSurface.runTaskLater(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class),10);
-
+        if (isEnabled) {
+            Operator_TaskRun taskRun = new Operator_TaskRun(this);
+            taskRun.runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 1, 1);
+            isEnabled = false;
         }
     }
-
-
-
 }

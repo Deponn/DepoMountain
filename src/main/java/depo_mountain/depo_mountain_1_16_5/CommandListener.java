@@ -33,11 +33,8 @@ public class CommandListener implements CommandExecutor, TabCompleter {
                 // パース失敗
                 return true;
             }
-            Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain();
-            boolean flag = operatorCreateMountain.setRegion(parser,player);
-            if(flag){
-                operatorCreateMountain.CreateHill();
-            }
+            Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
+            operatorCreateMountain.CreateHill();
         }
         // コマンドが実行されなかった場合は、falseを返して当メソッドを抜ける。
         return false;

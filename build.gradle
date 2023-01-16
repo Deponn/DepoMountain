@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'Depo_Mountain'
-version = 'v1'
+version = 'v2'
 
 repositories {
     mavenCentral()

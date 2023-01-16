@@ -33,7 +33,7 @@ public class _3_BlockEdit extends _0_taskTemplate {
         this.grass = BlockTypes.GRASS_BLOCK.getDefaultState().toBaseBlock();
         this.dirt = BlockTypes.DIRT.getDefaultState().toBaseBlock();
         this.bedrock = BlockTypes.BEDROCK.getDefaultState().toBaseBlock();
-        this.groundPattern = new Object_GroundPattern(parent.region.getMaximumPoint(), parent.region.getMinimumPoint());
+        this.groundPattern = new Object_GroundPattern(parent.region.getMaximumPoint(), parent.region.getMinimumPoint(),parent.commandParser.resource);
     }
 
     public void start() {
@@ -86,10 +86,7 @@ public class _3_BlockEdit extends _0_taskTemplate {
                 if (compare.equalsFuzzy(lapisblock)) {
                     return true;
                 }
-                // bReplaceAllがfalseの場合は空気しか置き換えない
-                if (!parent.commandParser.bReplaceAll && !compare.equalsFuzzy(air)) {
-                    return false;
-                }
+
                 return true;
             }
 

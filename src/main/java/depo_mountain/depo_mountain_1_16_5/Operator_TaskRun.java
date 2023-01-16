@@ -21,7 +21,7 @@ public class Operator_TaskRun extends BukkitRunnable {
         this.calculationSurface = new _2_CalculationSurface(parent);
         this.blockEdit = new _3_BlockEdit(parent);
         this.iterationCounter = 0;
-        this.step = 500;
+        this.step = 1000;
         this.flag = false;
     }
 

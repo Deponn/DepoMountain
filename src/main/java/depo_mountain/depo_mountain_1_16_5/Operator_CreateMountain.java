@@ -78,7 +78,7 @@ public class Operator_CreateMountain {
         return true;
     }
 
-    public void CreateHill(){
+    public void CreateMountain(){
         if (isEnabled) {
             Operator_TaskRun taskRun = new Operator_TaskRun(this);
             taskRun.runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 1, 1);

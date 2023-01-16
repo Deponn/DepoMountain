@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,24 @@ public class CommandListener implements CommandExecutor, TabCompleter {
                 return true;
             }
             Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
-            operatorCreateMountain.CreateHill();
+            operatorCreateMountain.CreateMountain();
+        }
+        if (cmd.getName().equalsIgnoreCase("/DpGround")) {
+            // プレイヤーチェック
+            if (!(sender instanceof Player)) {
+                // コマブロやコンソールからの実行の場合
+                sender.sendMessage(ChatColor.RED + "このコマンドはプレイヤーのみが使えます。");
+                return true;
+            }
+            Player player = (Player) sender;
+            //コマンド引数を処理
+            CommandParser parser = CommandParser.parseCommand(sender, args);
+            if (!parser.isSuccess) {
+                // パース失敗
+                return true;
+            }
+            Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
+            operatorCreateMountain.CreateMountain();
         }
         // コマンドが実行されなかった場合は、falseを返して当メソッドを抜ける。
         return false;
@@ -43,6 +61,11 @@ public class CommandListener implements CommandExecutor, TabCompleter {
     // コマンドのTAB補完の実装
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return CommandParser.suggestCommand(sender, args);
+        if (command.getName().equalsIgnoreCase("/DpMountain")) {
+            return CommandParser.suggestCommand_Mountain(sender, args);
+        }else if (command.getName().equalsIgnoreCase("/DpGround")){
+            return CommandParser.suggestCommand_Ground(sender, args);
+    }
+        return new ArrayList<>();
     }
 }

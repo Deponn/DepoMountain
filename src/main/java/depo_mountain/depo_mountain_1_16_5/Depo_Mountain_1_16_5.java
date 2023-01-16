@@ -20,6 +20,7 @@ public final class Depo_Mountain_1_16_5 extends JavaPlugin {
 
         // コマンドを登録
         Objects.requireNonNull(getServer().getPluginCommand("/DpMountain")).setExecutor(new CommandListener());
+        Objects.requireNonNull(getServer().getPluginCommand("/DpGround")).setExecutor(new CommandListener());
     }
 
     @Override

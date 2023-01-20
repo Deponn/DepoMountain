@@ -18,18 +18,6 @@ public class Object_GroundPattern {
     private final int SizeZ;
 
     public Object_GroundPattern(BlockVector3 MaxPos, BlockVector3 MinPos,float resource) {
-        BaseBlock STONE = BlockTypes.STONE.getDefaultState().toBaseBlock();
-        BaseBlock ANDESITE = BlockTypes.ANDESITE.getDefaultState().toBaseBlock();
-        BaseBlock GRANITE = BlockTypes.GRANITE.getDefaultState().toBaseBlock();
-        BaseBlock DIORITE = BlockTypes.DIORITE.getDefaultState().toBaseBlock();
-        BaseBlock COAL_ORE = BlockTypes.COAL_ORE.getDefaultState().toBaseBlock();
-        BaseBlock LAPIS_ORE = BlockTypes.LAPIS_ORE.getDefaultState().toBaseBlock();
-        BaseBlock REDSTONE_ORE = BlockTypes.REDSTONE_ORE.getDefaultState().toBaseBlock();
-        BaseBlock DIAMOND_ORE = BlockTypes.DIAMOND_ORE.getDefaultState().toBaseBlock();
-        BaseBlock IRON_ORE = BlockTypes.IRON_ORE.getDefaultState().toBaseBlock();
-        BaseBlock GOLD_ORE = BlockTypes.GOLD_ORE.getDefaultState().toBaseBlock();
-        BaseBlock EMERALD = BlockTypes.EMERALD_ORE.getDefaultState().toBaseBlock();
-
         this.SizeX = Math.abs(MaxPos.getX() - MinPos.getX()) + 1;
         this.SizeY = Math.abs(MaxPos.getY() - MinPos.getY()) + 1;
         this.SizeZ = Math.abs(MaxPos.getZ() - MinPos.getZ()) + 1;
@@ -41,31 +29,31 @@ public class Object_GroundPattern {
             for (int j = 0; j < SizeY; j++) {
                 for (int k = 0; k < SizeZ; k++) {
 
-                    Ground[i][j][k] = STONE;
+                    Ground[i][j][k] = Const.STONE;
                 }
             }
         }
         int Times = Math.round(SizeX * SizeY * SizeZ / 1000f * resource);
-        setRandomBlocks(ANDESITE,Times,2);
-        setRandomBlocks(GRANITE,Times,2);
-        setRandomBlocks(DIORITE,Times,2);
+        setRandomBlocks(Const.ANDESITE,Times,2);
+        setRandomBlocks(Const.GRANITE,Times,2);
+        setRandomBlocks(Const.DIORITE,Times,2);
 
         Times = Math.round(SizeX * SizeY * SizeZ / 500f * resource);
-        setRandomBlocks(COAL_ORE,Times,0);
+        setRandomBlocks(Const.COAL_ORE,Times,0);
 
         Times = Math.round(SizeX * SizeY * SizeZ / 800f * resource);
-        setRandomBlocks(IRON_ORE,Times,0);
+        setRandomBlocks(Const.IRON_ORE,Times,0);
 
         Times = Math.round(SizeX * SizeY * SizeZ / 600f * resource);
-        setRandomBlocks(REDSTONE_ORE,Times,0);
+        setRandomBlocks(Const.REDSTONE_ORE,Times,0);
 
         Times = Math.round(SizeX * SizeY * SizeZ / 3500f * resource);
-        setRandomBlocks(DIAMOND_ORE,Times,0);
-        setRandomBlocks(GOLD_ORE,Times,0);
-        setRandomBlocks(LAPIS_ORE,Times,0);
+        setRandomBlocks(Const.DIAMOND_ORE,Times,0);
+        setRandomBlocks(Const.GOLD_ORE,Times,0);
+        setRandomBlocks(Const.LAPIS_ORE,Times,0);
 
         Times = Math.round(SizeX * SizeY * SizeZ / 7000f * resource);
-        setRandomBlocks(EMERALD,Times,0);
+        setRandomBlocks(Const.EMERALD,Times,0);
     }
 
     public BaseBlock getBlock(BlockVector3 position) {

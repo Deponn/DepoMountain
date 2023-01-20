@@ -20,40 +20,29 @@ public class CommandListener implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         // プレイヤーがコマンドを投入した際の処理...
-        if (cmd.getName().equalsIgnoreCase("/DpMountain")) {
-            // プレイヤーチェック
-            if (!(sender instanceof Player)) {
-                // コマブロやコンソールからの実行の場合
-                sender.sendMessage(ChatColor.RED + "このコマンドはプレイヤーのみが使えます。");
-                return true;
-            }
-            Player player = (Player) sender;
-            //コマンド引数を処理
-            CommandParser parser = CommandParser.parseCommand(sender, args);
-            if (!parser.isSuccess) {
-                // パース失敗
-                return true;
-            }
-            Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
-            operatorCreateMountain.CreateMountain();
+
+        // プレイヤーチェック
+        if (!(sender instanceof Player)) {
+            // コマブロやコンソールからの実行の場合
+            sender.sendMessage(ChatColor.RED + "このコマンドはプレイヤーのみが使えます。");
+            return true;
         }
-        if (cmd.getName().equalsIgnoreCase("/DpGround")) {
-            // プレイヤーチェック
-            if (!(sender instanceof Player)) {
-                // コマブロやコンソールからの実行の場合
-                sender.sendMessage(ChatColor.RED + "このコマンドはプレイヤーのみが使えます。");
-                return true;
-            }
-            Player player = (Player) sender;
-            //コマンド引数を処理
-            CommandParser parser = CommandParser.parseCommand(sender, args);
-            if (!parser.isSuccess) {
-                // パース失敗
-                return true;
-            }
-            Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
-            operatorCreateMountain.CreateMountain();
+        Player player = (Player) sender;
+        //コマンド引数を処理
+        CommandParser parser = CommandParser.parseCommand(sender, args);
+        if (!parser.isSuccess) {
+            // パース失敗
+            return true;
         }
+        Operator_CreateMountain operatorCreateMountain = new Operator_CreateMountain(parser, player);
+
+        for (int i = 0; i < Const.getCommandList().size(); i++) {
+            if (cmd.getName().equalsIgnoreCase(Const.getCommandList().get(i))) {
+                operatorCreateMountain.CreateMountain(Const.getModeList().get(i));
+            }
+        }
+
+
         // コマンドが実行されなかった場合は、falseを返して当メソッドを抜ける。
         return false;
     }
@@ -61,11 +50,19 @@ public class CommandListener implements CommandExecutor, TabCompleter {
     // コマンドのTAB補完の実装
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (command.getName().equalsIgnoreCase("/DpMountain")) {
+        if (command.getName().equalsIgnoreCase(Const.DpMountain)) {
             return CommandParser.suggestCommand_Mountain(sender, args);
-        }else if (command.getName().equalsIgnoreCase("/DpGround")){
+        } else if (command.getName().equalsIgnoreCase(Const.DpGround)) {
             return CommandParser.suggestCommand_Ground(sender, args);
-    }
+        }else if (command.getName().equalsIgnoreCase(Const.DpGrassHill)) {
+            return CommandParser.suggestCommand_Mountain(sender, args);
+        }else if (command.getName().equalsIgnoreCase(Const.DpSandHill)) {
+            return CommandParser.suggestCommand_Mountain(sender, args);
+        }else if (command.getName().equalsIgnoreCase(Const.DpStoneHill)) {
+            return CommandParser.suggestCommand_Mountain(sender, args);
+        }else if (command.getName().equalsIgnoreCase(Const.DpStoneCeiling)) {
+            return CommandParser.suggestCommand_Mountain(sender, args);
+        }
         return new ArrayList<>();
     }
 }

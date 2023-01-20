@@ -19,8 +19,9 @@ public final class Depo_Mountain_1_16_5 extends JavaPlugin {
         getLogger().info("DepoMountainが有効化されました。");
 
         // コマンドを登録
-        Objects.requireNonNull(getServer().getPluginCommand("/DpMountain")).setExecutor(new CommandListener());
-        Objects.requireNonNull(getServer().getPluginCommand("/DpGround")).setExecutor(new CommandListener());
+        for(String command : Const.getCommandList()) {
+            Objects.requireNonNull(getServer().getPluginCommand(command)).setExecutor(new CommandListener());
+        }
     }
 
     @Override

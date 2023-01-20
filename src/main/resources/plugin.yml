@@ -8,13 +8,34 @@ description: create mountain
 
 commands: #自作プラグインのコマンドを宣言
   /DpMountain:
-    description: ラピスラズリブロックの点の補間により山を作成します。
+    description: ラピスラズリブロックの点の補間により山を作成します。元の地形を無視します。
     usage: //DpMountain [-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
     permission: mountain
   /DpGround:
     description: 資源を含んだ地面生成。
     usage: //DpGround [-Box 地面のみ変換ではなく箱型にする] [-NoLimited:高さ範囲無視] [-resource:資源量]
     permission: mountain
+  /DpGrassHill:
+    description: ラピスラズリブロックの点の補間により土の丘を作成します。
+    usage: //DpGrassHill [[-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
+    permission: mountain
+  /DpStoneHill:
+    description: ラピスラズリブロックの点の補間により石の丘を作成します。
+    usage: //DpStoneHill [-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
+    permission: mountain
+  /DpSandHill:
+    description: ラピスラズリブロックの点の補間により砂の丘を作成します。
+    usage: //DpSandHill [-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
+    permission: mountain
+  /DpStoneCeiling:
+    description: ラピスラズリブロックの点の補間により石の面を作ります。洞窟の屋根になります。
+    usage: //DpStoneCeiling [-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
+    permission: mountain
+  /DpLake:
+    description: 湖を生成。
+    usage: //DpLake
+    permission: mountain
+
 
 permissions:
   mountain:

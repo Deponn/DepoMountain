@@ -2,6 +2,8 @@ package depo_mountain.depo_mountain_1_16_5;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 public class Operator_TaskRun extends BukkitRunnable {
     private final _1_LapisCollector lapisCollector;
     private final _2_CalculationSurface calculationSurface;
@@ -14,12 +16,16 @@ public class Operator_TaskRun extends BukkitRunnable {
     private final Operator_CreateMountain parent;
 
     public Operator_TaskRun(Operator_CreateMountain parent) {
-        this.Counter = 0;
         this.parent = parent;
         this.iterationNum = parent.region.getWidth() * parent.region.getLength();
         this.lapisCollector = new _1_LapisCollector(parent);
         this.calculationSurface = new _2_CalculationSurface(parent);
         this.blockEdit = new _3_BlockEdit(parent);
+        if(Objects.equals(parent.mode, Const.GroundMode)) {
+            this.Counter = 2;
+        }else {
+            this.Counter = 0;
+        }
         this.iterationCounter = 0;
         this.step = 1000;
         this.flag = false;

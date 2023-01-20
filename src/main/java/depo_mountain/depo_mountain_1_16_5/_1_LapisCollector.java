@@ -25,7 +25,7 @@ public class _1_LapisCollector extends _0_taskTemplate {
             // ボーダーモードがONかつ、座標が縁で空気以外のブロックがあれば、それをラピスブロックとして扱う
             else if (parent.commandParser.bCollectBorder
                     && (xPoint == minX || xPoint == maxX || zPoint == minZ || zPoint == maxZ)
-                    && (currentBlock.getBlockType() != BlockTypes.AIR)) {
+                    && (parent.material_judge.GroundDirtOrStoneJudge(currentBlock))){
                 top = yPoint;
                 break;
             }
@@ -35,6 +35,18 @@ public class _1_LapisCollector extends _0_taskTemplate {
         if (top != -1) {
             parent.heightControlPoints.add(new Data_ControlPoint(xPoint, zPoint, top));
         }
+
+        int oldTop = -1;
+        // y座標方向のループ
+        for (int yPoint = maxY; yPoint >= minY; yPoint--) {
+            // ループで処理する座標のブロックを取得します。
+            if (parent.material_judge.GroundStoneJudge(parent.wWorld,BlockVector3.at(xPoint, yPoint, zPoint) )) {
+                oldTop = yPoint;
+                break;
+            }
+
+        }
+        parent.oldHeightmapArray[xPoint - minX][zPoint - minZ] = oldTop;
     }
 }
 

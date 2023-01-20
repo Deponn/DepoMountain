@@ -110,7 +110,7 @@ public class CommandParser {
             b_Y_Limited = false;
         }
         if (argsList.contains("-Box")) {
-            // y軸の範囲を無視する
+            // 箱型にする
             box = true;
         }
         if (argsList.contains("-k")) {
@@ -182,7 +182,4 @@ public class CommandParser {
         Me.Box = box;
         return Me;
     }
-
-
-
 }

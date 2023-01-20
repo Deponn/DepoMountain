@@ -29,11 +29,12 @@ public class _2_CalculationSurface extends _0_taskTemplate {
             double numerator = 0;
             double denominator = 0;
             int kNum;
-            if (parent.commandParser.kNum != 0) {
+            if (parent.commandParser.kNum != 0 & parent.commandParser.kNum < trainingFixedList.size()) {
                 kNum = parent.commandParser.kNum;
-            } else {
+            }else {
                 kNum = trainingFixedList.size();
             }
+
             for (int j = 0; j < kNum; j++) {
                 numerator += trainingFixedList.get(j).yHeight / trainingFixedList.get(j).xzDistance;
                 denominator += 1 / trainingFixedList.get(j).xzDistance;

@@ -23,7 +23,7 @@ public class Const {
     public static final String LakeMode = "LakeMode";
     public static final BaseBlock lapisblock = BlockTypes.LAPIS_BLOCK.getDefaultState().toBaseBlock();
     public static final BaseBlock air = BlockTypes.AIR.getDefaultState().toBaseBlock();
-    public static final BaseBlock grass = BlockTypes.GRASS_BLOCK.getDefaultState().toBaseBlock();
+    public static final BaseBlock grassBlock = BlockTypes.GRASS_BLOCK.getDefaultState().toBaseBlock();
     public static final BaseBlock dirt = BlockTypes.DIRT.getDefaultState().toBaseBlock();
     public static final BaseBlock bedrock = BlockTypes.BEDROCK.getDefaultState().toBaseBlock();
     public static final BaseBlock STONE = BlockTypes.STONE.getDefaultState().toBaseBlock();
@@ -39,7 +39,9 @@ public class Const {
     public static final BaseBlock IRON_ORE = BlockTypes.IRON_ORE.getDefaultState().toBaseBlock();
     public static final BaseBlock GOLD_ORE = BlockTypes.GOLD_ORE.getDefaultState().toBaseBlock();
     public static final BaseBlock EMERALD = BlockTypes.EMERALD_ORE.getDefaultState().toBaseBlock();
-
+    public static final BaseBlock GRASS = BlockTypes.GRASS.getDefaultState().toBaseBlock();
+    public static final BaseBlock cactus = BlockTypes.CACTUS.getDefaultState().toBaseBlock();
+    public static final BaseBlock deadBush = BlockTypes.DEAD_BUSH.getDefaultState().toBaseBlock();
     private Const(){
     }
     public static List<String> getCommandList(){

@@ -14,6 +14,7 @@ import com.sk89q.worldedit.world.block.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Random;
 
 public class _3_BlockEdit extends _0_taskTemplate {
 
@@ -21,12 +22,14 @@ public class _3_BlockEdit extends _0_taskTemplate {
     private final Material_judge material_judge;
     private EditSession editSession;
     private LocalSession session;
+    private final Random random;
 
     public _3_BlockEdit(Operator_CreateMountain parent) {
         super(parent);
         // ブロックを予め定義
         this.groundPattern = new Object_GroundPattern(parent.region.getMaximumPoint(), parent.region.getMinimumPoint(), parent.commandParser.resource);
         this.material_judge = new Material_judge();
+        this.random = new Random();
     }
 
     public void start() {
@@ -70,7 +73,7 @@ public class _3_BlockEdit extends _0_taskTemplate {
             public BaseBlock applyBlock(BlockVector3 position) {
                 // 表面からの距離に応じて違うブロックにする
                 int yPoint = position.getBlockY();
-                if (top - yPoint < 0) {
+                if (yPoint > top) {
                     return Const.air;
                 }else if (yPoint < 2) {
                     return Const.bedrock;
@@ -168,11 +171,17 @@ public class _3_BlockEdit extends _0_taskTemplate {
             public BaseBlock applyBlock(BlockVector3 position) {
                 // 表面からの距離に応じて違うブロックにする
                 int yPoint = position.getBlockY();
-                if (top - yPoint < 0) {
+                if (yPoint > top + 1) {
                     return Const.air;
-                } else if (top - yPoint < 1) {
-                    return Const.grass;
-                } else if (top - yPoint < 6) {
+                } else if (yPoint > top) {
+                    double ran = random.nextDouble();
+                    if(ran < 0.3){
+                        return Const.GRASS;
+                    }
+                    return Const.air;
+                }else if (yPoint > top - 1) {
+                    return Const.grassBlock;
+                } else if ((yPoint > top - 5)) {
                     return Const.dirt;
                 } else if (yPoint < 2) {
                     return Const.bedrock;
@@ -226,11 +235,19 @@ public class _3_BlockEdit extends _0_taskTemplate {
             public BaseBlock applyBlock(BlockVector3 position) {
                 // 表面からの距離に応じて違うブロックにする
                 int yPoint = position.getBlockY();
-                if (top - yPoint < 0) {
+                if (yPoint > top + 1) {
                     return Const.air;
-                } else if (top - yPoint < 3) {
+                }else if (yPoint > top) {
+                    double ran = random.nextDouble();
+                    if(ran < 0.01){
+                        return Const.cactus;
+                    }else if(ran < 0.1){
+                        return Const.deadBush;
+                    }
+                    return Const.air;
+                } else if (yPoint > top - 3) {
                     return Const.SAND;
-                } else if (top - yPoint < 6) {
+                } else if (yPoint > top - 5) {
                     return Const.SANDSTONE;
                 } else if (yPoint < 2) {
                     return Const.bedrock;

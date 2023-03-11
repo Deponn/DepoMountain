@@ -16,13 +16,17 @@ repositories {
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
     maven {
-        name = 'enginehub-maven'
+        url 'https://repo.enginehub.org/repository/releases/'
+    }
+    maven {
+        name = 'EngineHub'
         url = 'https://maven.enginehub.org/repo/'
     }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.12-SNAPSHOT'
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.12-SNAPSHOT'
 }
 

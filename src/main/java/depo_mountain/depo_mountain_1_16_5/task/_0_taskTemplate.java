@@ -1,8 +1,10 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
+
+import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
 public abstract class _0_taskTemplate {
 
-    protected final Operator_CreateMountain parent;
+    protected final MyProperties parent;
     protected final int minX;
     protected final int minY;
     protected final int minZ;
@@ -13,7 +15,7 @@ public abstract class _0_taskTemplate {
     protected final int length;
 
 
-    public _0_taskTemplate(Operator_CreateMountain parent){
+    public _0_taskTemplate(MyProperties parent){
         this.parent = parent;
         // 操作
         this.minX = parent.region.getMinimumPoint().getBlockX();

@@ -1,12 +1,14 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
 
 
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import depo_mountain.depo_mountain_1_16_5.Data_ControlPoint;
+import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
 public class _1_LapisCollector extends _0_taskTemplate {
-    public _1_LapisCollector(Operator_CreateMountain parent) {
+    public _1_LapisCollector(MyProperties parent) {
         super(parent);
     }
 

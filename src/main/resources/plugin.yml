@@ -31,11 +31,6 @@ commands: #自作プラグインのコマンドを宣言
     description: ラピスラズリブロックの点の補間により石の面を作ります。洞窟の屋根になります。
     usage: //DpStoneCeiling [-NoBorder:境界を無視する] [-NoLimited:高さ範囲無視] [-degree:傾き] [-k:補完の頂点数] [-resource:資源量]
     permission: mountain
-  /DpLake:
-    description: 湖を生成。
-    usage: //DpLake
-    permission: mountain
-
 
 permissions:
   mountain:

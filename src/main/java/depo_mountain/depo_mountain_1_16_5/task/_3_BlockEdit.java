@@ -1,4 +1,4 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalSession;
@@ -11,6 +11,11 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
+import depo_mountain.depo_mountain_1_16_5.Constant.Const;
+import depo_mountain.depo_mountain_1_16_5.Constant.Material_judge;
+import depo_mountain.depo_mountain_1_16_5.Constant.Object_GroundPattern;
+import depo_mountain.depo_mountain_1_16_5.MyProperties;
+import depo_mountain.depo_mountain_1_16_5.command.CmdName;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -24,7 +29,7 @@ public class _3_BlockEdit extends _0_taskTemplate {
     private LocalSession session;
     private final Random random;
 
-    public _3_BlockEdit(Operator_CreateMountain parent) {
+    public _3_BlockEdit(MyProperties parent) {
         super(parent);
         // ブロックを予め定義
         this.groundPattern = new Object_GroundPattern(parent.region.getMaximumPoint(), parent.region.getMinimumPoint(), parent.commandParser.resource);
@@ -44,17 +49,17 @@ public class _3_BlockEdit extends _0_taskTemplate {
 
     @Override
     protected void miniTask(int xPoint, int zPoint, int x, int z) {
-        if (Objects.equals(parent.mode, Const.MountainMode)) {
+        if (Objects.equals(parent.mode, CmdName.Mountain)) {
             Mountain(xPoint, zPoint, x, z);
-        } else if (Objects.equals(parent.mode, Const.GroundMode)) {
+        } else if (Objects.equals(parent.mode, CmdName.Ground)) {
             Ground(xPoint, zPoint, x, z);
-        }else if (Objects.equals(parent.mode, Const.GrassHillMode)) {
+        }else if (Objects.equals(parent.mode, CmdName.GrassHill)) {
             GrassHill(xPoint, zPoint, x, z);
-        }else if (Objects.equals(parent.mode, Const.SandHillMode)) {
+        }else if (Objects.equals(parent.mode, CmdName.SandHill)) {
             SandHill(xPoint, zPoint, x, z);
-        }else if (Objects.equals(parent.mode, Const.StoneHillMode)) {
+        }else if (Objects.equals(parent.mode, CmdName.StoneHill)) {
             StoneHill(xPoint, zPoint, x, z);
-        }else if (Objects.equals(parent.mode, Const.StoneCeilingMode)) {
+        }else if (Objects.equals(parent.mode, CmdName.StoneCeiling)) {
             StoneCeiling(xPoint, zPoint, x, z);
         }
     }

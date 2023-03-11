@@ -1,11 +1,15 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
 
+
+import depo_mountain.depo_mountain_1_16_5.Data_ControlPoint;
+import depo_mountain.depo_mountain_1_16_5.Data_DistanceHeight;
+import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class _2_CalculationSurface extends _0_taskTemplate {
-    public _2_CalculationSurface(Operator_CreateMountain parent) {
+    public _2_CalculationSurface(MyProperties parent) {
         super(parent);
     }
 

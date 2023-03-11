@@ -1,4 +1,4 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.Constant;
 
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.world.World;

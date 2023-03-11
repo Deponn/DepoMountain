@@ -1,5 +1,7 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
 
+import depo_mountain.depo_mountain_1_16_5.MyProperties;
+import depo_mountain.depo_mountain_1_16_5.command.CmdName;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Objects;
@@ -13,15 +15,15 @@ public class Operator_TaskRun extends BukkitRunnable {
     private int iterationCounter;
     private final int step;
     private boolean flag;
-    private final Operator_CreateMountain parent;
+    private final MyProperties parent;
 
-    public Operator_TaskRun(Operator_CreateMountain parent) {
+    public Operator_TaskRun(MyProperties parent) {
         this.parent = parent;
         this.iterationNum = parent.region.getWidth() * parent.region.getLength();
         this.lapisCollector = new _1_LapisCollector(parent);
         this.calculationSurface = new _2_CalculationSurface(parent);
         this.blockEdit = new _3_BlockEdit(parent);
-        if(Objects.equals(parent.mode, Const.GroundMode)) {
+        if(Objects.equals(parent.mode, CmdName.Ground)) {
             this.Counter = 2;
         }else {
             this.Counter = 0;

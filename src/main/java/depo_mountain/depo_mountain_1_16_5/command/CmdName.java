@@ -1,13 +1,14 @@
-package dp_fpsgame.dp_fpsgame.Command;
+package depo_mountain.depo_mountain_1_16_5.command;
 
 public enum CmdName {
 
 
-    EnableFPS("DpEnableFPS"),
-    DisableFPS("DpDisableFPS"),
-    InitializeGame("DpInitializeGame"),
-    SetPlayMode("DpSetPlayMode"),
-    SetProperties("DpSetProperties");
+    Mountain("/DpMountain"),
+    Ground("/DpGround"),
+    GrassHill("/DpGrassHill"),
+    SandHill("/DpSandHill"),
+    StoneHill("/DpStoneHill"),
+    StoneCeiling("/DpStoneCeiling");
 
     private final String Command;
 

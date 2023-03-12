@@ -1,6 +1,5 @@
 package depo_mountain.depo_mountain_1_16_5;
 
-import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -9,7 +8,7 @@ import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import depo_mountain.depo_mountain_1_16_5.command.CmdName;
 import depo_mountain.depo_mountain_1_16_5.command.CommandParser;
-import depo_mountain.depo_mountain_1_16_5.task.Operator_TaskRun;
+import depo_mountain.depo_mountain_1_16_5.task.TaskRun;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +17,7 @@ import java.util.ArrayList;
 
 public class Operator_CreateMountain {
 
-    private boolean isEnabled;
-    public LocalSession session;
+    private final boolean isEnabled;
     public final MyProperties prop;
 
     public Operator_CreateMountain(CommandParser parser, Player player){
@@ -31,13 +29,13 @@ public class Operator_CreateMountain {
         prop.wWorld = prop.wPlayer.getWorld();
         prop.commandParser = parser;
         // プレイヤーセッション
-        this.session = WorldEdit.getInstance().getSessionManager().get(prop.wPlayer);
+        prop.session = WorldEdit.getInstance().getSessionManager().get(prop.wPlayer);
 
         this.isEnabled = setRegion(parser, player);
     }
     private boolean setRegion(CommandParser parser, Player player){
 
-        if (!session.isSelectionDefined(prop.wWorld)) {
+        if (!prop.session.isSelectionDefined(prop.wWorld)) {
             // 範囲が選択されていない場合
             player.sendMessage(ChatColor.RED + "WorldEditの範囲が選択されていません。");
             return false;
@@ -45,7 +43,7 @@ public class Operator_CreateMountain {
 
         Region selectRegion;
         try {
-            selectRegion = session.getSelection(prop.wWorld);
+            selectRegion = prop.session.getSelection(prop.wWorld);
         } catch (WorldEditException e) {
             // 範囲が不完全です
             player.sendMessage(ChatColor.RED + "WorldEditの範囲が不完全です。");
@@ -75,9 +73,8 @@ public class Operator_CreateMountain {
     public void CreateMountain(CmdName mode){
         if (isEnabled) {
             prop.mode = mode;
-            Operator_TaskRun taskRun = new Operator_TaskRun(prop);
-            taskRun.runTaskTimer(JavaPlugin.getPlugin(Depo_Mountain_1_16_5.class), 1, 1);
-            isEnabled = false;
+            TaskRun taskRun = new TaskRun(prop);
+            taskRun.run();
         }
     }
 }

@@ -1,9 +1,7 @@
 package depo_mountain.depo_mountain_1_16_5.task;
 
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.function.mask.AbstractExtentMask;
 import com.sk89q.worldedit.function.mask.Mask2D;
 import com.sk89q.worldedit.function.pattern.Pattern;
@@ -21,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
-public class _3_Edit extends _0_taskTemplate {
+public class _3_Edit extends _0_Task {
 
     private final Object_GroundPattern groundPattern;
     private final Material_judge material_judge;
@@ -39,7 +37,6 @@ public class _3_Edit extends _0_taskTemplate {
 
     public void edit() {
         this.editSession = prop.worldEditPlugin.createEditSession(prop.player);
-        LocalSession session = WorldEdit.getInstance().getSessionManager().get(prop.wPlayer);
 
         //範囲
         CuboidRegion miniRegion = new CuboidRegion(prop.wWorld,
@@ -56,7 +53,7 @@ public class _3_Edit extends _0_taskTemplate {
             throw new RuntimeException(e);
         }
 
-        session.remember(editSession);
+        prop.session.remember(editSession);
         editSession.close();
 
     }

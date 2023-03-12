@@ -6,8 +6,8 @@ import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
-public class _1_LapisCollector extends _0_taskTemplate {
-    public _1_LapisCollector(MyProperties parent) {
+public class _1_Collector extends _0_Task {
+    public _1_Collector(MyProperties parent) {
         super(parent);
     }
 

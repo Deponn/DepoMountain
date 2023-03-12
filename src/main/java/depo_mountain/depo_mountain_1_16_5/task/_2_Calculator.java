@@ -6,8 +6,8 @@ import depo_mountain.depo_mountain_1_16_5.MyProperties;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class _2_CalculationSurface extends _0_taskTemplate {
-    public _2_CalculationSurface(MyProperties parent) {
+public class _2_Calculator extends _0_Task {
+    public _2_Calculator(MyProperties parent) {
         super(parent);
     }
 

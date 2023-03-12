@@ -2,7 +2,7 @@ package depo_mountain.depo_mountain_1_16_5.task;
 
 import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
-public abstract class _0_taskTemplate {
+public abstract class _0_Task {
 
     protected final MyProperties prop;
     protected final int minX;
@@ -15,7 +15,7 @@ public abstract class _0_taskTemplate {
     protected final int length;
 
 
-    public _0_taskTemplate(MyProperties prop){
+    public _0_Task(MyProperties prop){
         this.prop = prop;
         // 操作
         this.minX = prop.region.getMinimumPoint().getBlockX();
@@ -28,10 +28,9 @@ public abstract class _0_taskTemplate {
         this.length = prop.region.getLength();
     }
 
-    public void run(int start, int end){
-        if(end > width * length){
-            end = width * length;
-        }
+    public void run(){
+        int start = 0;
+        int end = width * length;
         for (int i = start; i < end; i++) {
             int x = i % width;
             int z = i / width;

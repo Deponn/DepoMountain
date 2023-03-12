@@ -1,5 +1,6 @@
 package depo_mountain.depo_mountain_1_16_5;
 
+import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.extension.platform.AbstractPlayerActor;
 import com.sk89q.worldedit.regions.CuboidRegion;
@@ -26,6 +27,7 @@ public class MyProperties {
     public WorldEditPlugin worldEditPlugin;
     public AbstractPlayerActor wPlayer;
     public CmdName mode;
+    public LocalSession session;
     public final Material_judge material_judge;
 
     public MyProperties(){

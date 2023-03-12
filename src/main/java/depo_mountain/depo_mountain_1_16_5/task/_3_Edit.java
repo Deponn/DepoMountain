@@ -56,8 +56,9 @@ public class _3_Edit extends _0_taskTemplate {
             throw new RuntimeException(e);
         }
 
-        editSession.close();
         session.remember(editSession);
+        editSession.close();
+
     }
 
     @Override

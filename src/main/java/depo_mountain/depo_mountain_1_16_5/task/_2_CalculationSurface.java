@@ -1,8 +1,6 @@
 package depo_mountain.depo_mountain_1_16_5.task;
 
 
-import depo_mountain.depo_mountain_1_16_5.Data_ControlPoint;
-import depo_mountain.depo_mountain_1_16_5.Data_DistanceHeight;
 import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
 import java.util.ArrayList;

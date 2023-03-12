@@ -7,6 +7,7 @@ import com.sk89q.worldedit.world.World;
 import depo_mountain.depo_mountain_1_16_5.Constant.Material_judge;
 import depo_mountain.depo_mountain_1_16_5.command.CmdName;
 import depo_mountain.depo_mountain_1_16_5.command.CommandParser;
+import depo_mountain.depo_mountain_1_16_5.task.Data_ControlPoint;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

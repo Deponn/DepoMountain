@@ -1,4 +1,4 @@
-package depo_mountain.depo_mountain_1_16_5;
+package depo_mountain.depo_mountain_1_16_5.task;
 
 /**
  * ハイトマップx,z地点における高さyのデータ

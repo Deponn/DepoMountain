@@ -4,7 +4,7 @@ import depo_mountain.depo_mountain_1_16_5.MyProperties;
 
 public abstract class _0_taskTemplate {
 
-    protected final MyProperties parent;
+    protected final MyProperties prop;
     protected final int minX;
     protected final int minY;
     protected final int minZ;
@@ -15,17 +15,17 @@ public abstract class _0_taskTemplate {
     protected final int length;
 
 
-    public _0_taskTemplate(MyProperties parent){
-        this.parent = parent;
+    public _0_taskTemplate(MyProperties prop){
+        this.prop = prop;
         // 操作
-        this.minX = parent.region.getMinimumPoint().getBlockX();
-        this.minY = parent.region.getMinimumPoint().getBlockY();
-        this.minZ = parent.region.getMinimumPoint().getBlockZ();
-        this.maxX = parent.region.getMaximumPoint().getBlockX();
-        this.maxY = parent.region.getMaximumPoint().getBlockY();
-        this.maxZ = parent.region.getMaximumPoint().getBlockZ();
-        this.width = parent.region.getWidth();
-        this.length = parent.region.getLength();
+        this.minX = prop.region.getMinimumPoint().getBlockX();
+        this.minY = prop.region.getMinimumPoint().getBlockY();
+        this.minZ = prop.region.getMinimumPoint().getBlockZ();
+        this.maxX = prop.region.getMaximumPoint().getBlockX();
+        this.maxY = prop.region.getMaximumPoint().getBlockY();
+        this.maxZ = prop.region.getMaximumPoint().getBlockZ();
+        this.width = prop.region.getWidth();
+        this.length = prop.region.getLength();
     }
 
     public void run(int start, int end){

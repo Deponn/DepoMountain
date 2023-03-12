@@ -19,36 +19,36 @@ public class _1_LapisCollector extends _0_taskTemplate {
         // y座標方向のループ
         for (int yPoint = maxY; yPoint >= minY; yPoint--) {
             // ループで処理する座標のブロックを取得します。
-            BlockState currentBlock = parent.wWorld.getBlock(BlockVector3.at(xPoint, yPoint, zPoint));
+            BlockState currentBlock = prop.wWorld.getBlock(BlockVector3.at(xPoint, yPoint, zPoint));
             if (currentBlock.getBlockType() == BlockTypes.LAPIS_BLOCK) {
                 top = yPoint;
                 break;
             }
             // ボーダーモードがONかつ、座標が縁で空気以外のブロックがあれば、それをラピスブロックとして扱う
-            else if (parent.commandParser.bCollectBorder
+            else if (prop.commandParser.bCollectBorder
                     && (xPoint == minX || xPoint == maxX || zPoint == minZ || zPoint == maxZ)
-                    && (parent.material_judge.GroundDirtOrStoneJudge(currentBlock))){
+                    && (prop.material_judge.GroundDirtOrStoneJudge(currentBlock))){
                 top = yPoint;
                 break;
             }
         }
-        parent.heightmapArray[xPoint - minX][zPoint - minZ] = top;
+        prop.heightmapArray[xPoint - minX][zPoint - minZ] = top;
         // ラピスラズリブロックがあった場合にリストに記録
         if (top != -1) {
-            parent.heightControlPoints.add(new Data_ControlPoint(xPoint, zPoint, top));
+            prop.heightControlPoints.add(new Data_ControlPoint(xPoint, zPoint, top));
         }
 
         int oldTop = -1;
         // y座標方向のループ
         for (int yPoint = maxY; yPoint >= minY; yPoint--) {
             // ループで処理する座標のブロックを取得します。
-            if (parent.material_judge.GroundStoneJudge(parent.wWorld,BlockVector3.at(xPoint, yPoint, zPoint) )) {
+            if (prop.material_judge.GroundStoneJudge(prop.wWorld,BlockVector3.at(xPoint, yPoint, zPoint) )) {
                 oldTop = yPoint;
                 break;
             }
 
         }
-        parent.oldHeightmapArray[xPoint - minX][zPoint - minZ] = oldTop;
+        prop.oldHeightmapArray[xPoint - minX][zPoint - minZ] = oldTop;
     }
 }
 

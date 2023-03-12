@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Operator_TaskRun extends BukkitRunnable {
     private final _1_LapisCollector lapisCollector;
     private final _2_CalculationSurface calculationSurface;
-    private final _3_BlockEdit blockEdit;
+    private final _3_Edit blockEdit;
     private int Counter;
     private final int iterationNum;
     private int iterationCounter;
@@ -22,7 +22,7 @@ public class Operator_TaskRun extends BukkitRunnable {
         this.iterationNum = parent.region.getWidth() * parent.region.getLength();
         this.lapisCollector = new _1_LapisCollector(parent);
         this.calculationSurface = new _2_CalculationSurface(parent);
-        this.blockEdit = new _3_BlockEdit(parent);
+        this.blockEdit = new _3_Edit(parent);
         if(Objects.equals(parent.mode, CmdName.Ground)) {
             this.Counter = 2;
         }else {
@@ -62,25 +62,14 @@ public class Operator_TaskRun extends BukkitRunnable {
                 iterationCounter = 0;
             }
         } else if (Counter == 2) {
-            blockEdit.start();
-            Counter += 1;
-        } else if (Counter == 3) {
-            if (iterationCounter * step < iterationNum) {
-                if (!flag) {
-                    flag = true;
-                    blockEdit.run(iterationCounter * step, (iterationCounter + 1) * step);
-                    parent.player.sendMessage("地形反映中:" + iterationCounter * step + "/" + iterationNum);
-                    iterationCounter += 1;
-                    flag = false;
-                }
-            } else {
+            if (!flag) {
+                flag = true;
+                blockEdit.edit();
+                parent.player.sendMessage("地形反映中");
                 Counter += 1;
-                iterationCounter = 0;
+                flag = false;
             }
-        } else if (Counter == 4) {
-            blockEdit.end();
-            Counter += 1;
-        } else if (Counter == 5) {
+        } else if (Counter == 3) {
             cancel();
         }
     }

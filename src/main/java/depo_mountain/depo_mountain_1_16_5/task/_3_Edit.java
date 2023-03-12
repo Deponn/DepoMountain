@@ -23,7 +23,6 @@ public class _3_Edit extends _0_Task {
 
     private final Object_GroundPattern groundPattern;
     private final Material_judge material_judge;
-    private EditSession editSession;
     private final Random random;
 
     public _3_Edit(MyProperties parent) {
@@ -36,7 +35,7 @@ public class _3_Edit extends _0_Task {
 
 
     public void edit() {
-        this.editSession = prop.worldEditPlugin.createEditSession(prop.player);
+        EditSession editSession = prop.worldEditPlugin.createEditSession(prop.player);
 
         //範囲
         CuboidRegion miniRegion = new CuboidRegion(prop.wWorld,
@@ -45,7 +44,7 @@ public class _3_Edit extends _0_Task {
         // 改変後の地形のパターン
         Pattern pattern = getPattern();
         // bReplaceAllがtrueのとき全て書き換え、falseのとき空気のみ書き換える。
-        AbstractExtentMask mask = getMask(pattern);
+        AbstractExtentMask mask = getMask(pattern,editSession);
         // ラピスラズリブロックを消去したうえで、標高の地点まで土を盛っていく
         try {
             editSession.replaceBlocks(miniRegion, mask, pattern);
@@ -79,19 +78,19 @@ public class _3_Edit extends _0_Task {
         }
         return null;
     }
-    private AbstractExtentMask getMask(Pattern pattern){
+    private AbstractExtentMask getMask(Pattern pattern,EditSession editSession){
         if (Objects.equals(prop.mode, CmdName.Mountain)) {
-            return MountainMask(pattern);
+            return MountainMask(pattern,editSession);
         } else if (Objects.equals(prop.mode, CmdName.Ground)) {
-            return GroundMask(pattern);
+            return GroundMask(pattern,editSession);
         }else if (Objects.equals(prop.mode, CmdName.GrassHill)) {
-            return HillMask(pattern);
+            return HillMask(pattern,editSession);
         }else if (Objects.equals(prop.mode, CmdName.SandHill)) {
-            return HillMask(pattern);
+            return HillMask(pattern,editSession);
         }else if (Objects.equals(prop.mode, CmdName.StoneHill)) {
-            return HillMask(pattern);
+            return HillMask(pattern,editSession);
         }else if (Objects.equals(prop.mode, CmdName.StoneCeiling)) {
-            return HillMask(pattern);
+            return HillMask(pattern,editSession);
         }
         return null;
     }
@@ -112,7 +111,7 @@ public class _3_Edit extends _0_Task {
             }
         };
     }
-    private AbstractExtentMask MountainMask(Pattern pattern){
+    private AbstractExtentMask MountainMask(Pattern pattern,EditSession editSession){
         return new AbstractExtentMask(editSession) {
             @Override
             public boolean test(BlockVector3 vector) {
@@ -138,7 +137,7 @@ public class _3_Edit extends _0_Task {
         };
     }
 
-    private AbstractExtentMask GroundMask(Pattern pattern){
+    private AbstractExtentMask GroundMask(Pattern pattern,EditSession editSession){
         return new AbstractExtentMask(editSession) {
             @Override
             public boolean test(BlockVector3 vector) {
@@ -251,7 +250,7 @@ public class _3_Edit extends _0_Task {
             }
         };
     }
-    private AbstractExtentMask HillMask(Pattern pattern){
+    private AbstractExtentMask HillMask(Pattern pattern,EditSession editSession){
         return new AbstractExtentMask(editSession) {
             @Override
             public boolean test(BlockVector3 vector) {

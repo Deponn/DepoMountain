@@ -72,6 +72,7 @@ public class Operator_CreateMountain {
 
     public void CreateMountain(CmdName mode){
         if (isEnabled) {
+            //一括で
             prop.mode = mode;
             TaskRun taskRun = new TaskRun(prop);
             taskRun.run();

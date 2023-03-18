@@ -32,7 +32,7 @@ public class Object_GroundPattern {
                 }
             }
         }
-        int Times = Math.round(SizeX * SizeY * SizeZ / 1000f * resource);
+        int Times = Math.round(SizeX * SizeY * SizeZ / 1000f);
         setRandomBlocks(Const.ANDESITE,Times,2);
         setRandomBlocks(Const.GRANITE,Times,2);
         setRandomBlocks(Const.DIORITE,Times,2);
